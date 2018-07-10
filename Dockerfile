@@ -78,7 +78,6 @@ RUN apt-get update \
     libx11-dev \
     libxt-dev
 
-
 RUN echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen \
     && echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen
@@ -104,9 +103,11 @@ RUN Rscript /root/install_packages.r
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN mkdir /server
+RUN useradd -m shiny \
+    &&  mkdir /server \
+    && mkdir /etc/service/shiny
 
 EXPOSE 3838
 
-CMD ["R", "-e", "shiny::runApp('/server/app')"]
+CMD ["/sbin/my_init"]
 
