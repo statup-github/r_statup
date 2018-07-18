@@ -89,7 +89,9 @@ RUN cd /opt \
     && tar -xf microsoft-r-open-${RVERSION}.tar.gz \
     && rm microsoft-r-open-${RVERSION}.tar.gz \
     && cd microsoft-r-open/ \
-    && ./install.sh -a -u
+    && ./install.sh -a -u \
+    && cd .. \
+    && rm -r microsoft-r-open
 
 ## Use littler installation scripts
 # RUN Rscript -e "install.packages(c('littler', 'docopt'))" \
@@ -102,10 +104,6 @@ COPY install_packages.r /root/install_packages.r
 RUN Rscript /root/install_packages.r
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN useradd -m shiny \
-    &&  mkdir /server \
-    && mkdir /etc/service/shiny
 
 EXPOSE 3838
 
