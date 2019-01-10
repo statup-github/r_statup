@@ -49,3 +49,5 @@ install.packages("shinyWidgets")
 install.packages("shinycssloaders")
 install.packages("DT")
 
+# Misc
+install.packages("car")
