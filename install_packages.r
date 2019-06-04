@@ -6,14 +6,15 @@ if (!require(devtools))
   install.packages("devtools")
 
 
-if (!require(statupinternal)) {
-  devtools::install_git(
-    "https://git.stablab.de/RPackages/statupinternal",
-    branch = "v1.0",
-    upgrade_dependencies = FALSE)
-}
+if (!isTRUE(try(
+  compareVersion(installed.packages()["statupinternal","Version"], "1.2.0") == 0
+)))
+  devtools::install_git("https://git.stablab.de/RPackages/statupinternal", 
+                        ref = "1.2",
+                        upgrade = FALSE)
 
 library(statupinternal)
+
 
 # Needed for correct paths
 install.packages("here")
